@@ -19,5 +19,5 @@ func main() {
     return c.SendString("Hello, world")
   })
 
-  log.Fatal(app.Listen(":9001")) // logging errors
+  log.Fatal(app.Listen(":9001")) // log fatal errors
 }
