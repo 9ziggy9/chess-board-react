@@ -1,6 +1,6 @@
 import './index.css';
-import {useReducer, useEffect} from 'react';
-import {gameReducer, INITIAL_GAME} from './store/gameReducer.js';
+import {useReducer, useEffect, useRef, useState} from 'react';
+import {gameReducer, NEW_GAME} from './store/gameReducer.js';
 
 const coords = [
   ["a8", "b8", "c8", "d8", "e8", "f8", "g8", "h8"],
@@ -15,8 +15,36 @@ const coords = [
 
 function App() {
   // eslint-disable-next-line no-unused-vars
-  const [gameState, dispatch] = useReducer(gameReducer, INITIAL_GAME);
+  const [gameState, dispatch] = useReducer(gameReducer, NEW_GAME);
+  const [moving, setMoving] = useState(false);
   const {pieces} = gameState;
+  const clickedSquare = useRef("");
+  const selectedPiece = useRef("");
+
+  // const createQueen = (piece, to) => dispatch({type: "ADD", payload: {piece, to}});
+  const handleMove = e => {
+    if (!moving) {
+      setMoving(true);
+      clickedSquare.current = e.target.id;
+      selectedPiece.current = e.target.className;
+      e.target.className = "";
+    } else {
+      setMoving(false);
+      dispatch({
+        type: "MOVE",
+        payload: {
+          from: clickedSquare.current,
+          to: e.target.id,
+          piece: selectedPiece.current
+        }
+      });
+    }
+  };
+
+  useEffect(() => {
+    dispatch({type: "MOVE",
+              payload: {from: "e2", to: "e4", piece: "piece-P"}});
+  }, []);
 
   return (
     <>
@@ -25,14 +53,19 @@ function App() {
 	  <div id="board">
 	    {coords.map((row, x) => (row.map((c, y) => (
 		y % 2
-		? <div className={x % 2 ? "light-square" : "dark-square"} key={`board-${c}`}></div>
-		: <div className={x % 2 ? "dark-square" : "light-square"} key={`board-${c}`}></div>
+		? <div className={x % 2 ? "light-square" : "dark-square"}
+                       key={`board-${c}`}></div>
+		: <div className={x % 2 ? "dark-square" : "light-square"}
+		      key={`board-${c}`}></div>
 	      ))
 	    ))}
 	  </div>
 	  <div id="pieces">
 	    {coords.map((row, x) => (row.map((c, y) => (
-	    	<div draggable className={pieces[c] ? pieces[c] : ""} key={`piece-${c}`}></div>
+	      <div 
+		className={pieces[c] ? pieces[c] : ""}
+		onClick={(e) => handleMove(e)}
+		key={`piece-${c}`} id={`${c}`}></div>
 	      ))
 	    ))}
 	  </div>
