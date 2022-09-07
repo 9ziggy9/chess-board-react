@@ -110,3 +110,6 @@ html, body {
     background-size: contain;
     background-image: url(./img/queen_black.png);
 }
+.selected-piece {
+    opacity: 50%;
+}

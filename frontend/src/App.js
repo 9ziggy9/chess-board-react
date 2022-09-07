@@ -21,15 +21,20 @@ function App() {
   const clickedSquare = useRef("");
   const selectedPiece = useRef("");
 
-  // const createQueen = (piece, to) => dispatch({type: "ADD", payload: {piece, to}});
   const handleMove = e => {
     if (!moving) {
       setMoving(true);
       clickedSquare.current = e.target.id;
       selectedPiece.current = e.target.className;
-      e.target.className = "";
+      console.log(e.target.classList);
+      e.target.classList.toggle("selected-piece");
+      return;
     } else {
       setMoving(false);
+      if (e.target.id === clickedSquare.current) {
+	e.target.className = selectedPiece.current; 
+        return;
+      }
       dispatch({
         type: "MOVE",
         payload: {
@@ -38,13 +43,9 @@ function App() {
           piece: selectedPiece.current
         }
       });
+      return;
     }
   };
-
-  useEffect(() => {
-    dispatch({type: "MOVE",
-              payload: {from: "e2", to: "e4", piece: "piece-P"}});
-  }, []);
 
   return (
     <>
