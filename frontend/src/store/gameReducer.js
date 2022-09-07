@@ -2,7 +2,7 @@ import {INITIAL_PIECES} from '../globals';
 
 export const NEW_GAME = {
   pieces: INITIAL_PIECES,
-  toMove: 0,
+  whiteMove: true,
   castledBlack: false,
   castledWhite: false,
 };
@@ -19,6 +19,7 @@ export const gameReducer = (state, action) => {
   case "MOVE":
     return {
       ...state,
+      whiteMove: false,
       pieces: {...state.pieces,
 	       [action.payload.from]: undefined,
 	       [action.payload.to]: action.payload.piece}};
