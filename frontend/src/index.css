@@ -4,6 +4,7 @@ html, body {
     margin: 0;
     height: 100%;
     width: 100%;
+    caret-color: transparent;
 }
 
 #root {
@@ -21,30 +22,90 @@ html, body {
 }
 
 #game-area {
-    display: grid;
-    grid-template-columns: repeat(3, 100vw);
-    grid-template-rows: repeat(3, 100vh);
-    grid-column-gap: 0px;
-    grid-row-gap: 0px;
+    width: 100%;
+    display: flex;
+    background-color: #373b41;
+    align-items: center;
+    justify-content: center;
 }
 
 #board {
     grid-area: 1 / 1 / 4 / 3;
     display: grid;
-    grid-template-columns: repeat(8, 4vw);
-    grid-template-rows: repeat(8, 4vw);
+    grid-template-columns: repeat(8, 6.25vw);
+    grid-template-rows: repeat(8, 6.25vw);
     grid-column-gap: 0px;
     grid-row-gap: 0px;
 }
 
+#pieces {
+    position: absolute;
+    grid-area: 1 / 1 / 4 / 3;
+    display: grid;
+    grid-template-columns: repeat(8, 6.25vw);
+    grid-template-rows: repeat(8, 6.25vw);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    z-index: 2;
+}
+
 .dark-square {
-    background-color: black;
+    background-color: #5f819d;
     width: 100%;
     height: 100%;
 }
 
 .light-square {
-    background-color: red;
+    background-color: #c5c8c6;
     width: 100%;
     height: 100%;
+}
+
+.piece-P {
+    background-size: contain;
+    background-image: url(./img/pawn_white.png);
+}
+.piece-p {
+    background-size: contain;
+    background-image: url(./img/pawn_black.png);
+}
+.piece-R {
+    background-size: contain;
+    background-image: url(./img/rook_white.png);
+}
+.piece-r {
+    background-size: contain;
+    background-image: url(./img/rook_black.png);
+}
+.piece-N {
+    background-size: contain;
+    background-image: url(./img/knight_white.png);
+}
+.piece-n {
+    background-size: contain;
+    background-image: url(./img/knight_black.png);
+}
+.piece-B {
+    background-size: contain;
+    background-image: url(./img/bishop_white.png);
+}
+.piece-b {
+    background-size: contain;
+    background-image: url(./img/bishop_black.png);
+}
+.piece-K {
+    background-size: contain;
+    background-image: url(./img/king_white.png);
+}
+.piece-k {
+    background-size: contain;
+    background-image: url(./img/king_black.png);
+}
+.piece-Q {
+    background-size: contain;
+    background-image: url(./img/queen_white.png);
+}
+.piece-q {
+    background-size: contain;
+    background-image: url(./img/queen_black.png);
 }
