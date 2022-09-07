@@ -1,0 +1,2 @@
+* React Chess Board
+A simple chess board and clocks using React

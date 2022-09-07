@@ -14,17 +14,16 @@ const coords = [
 function App() {
   return (
     <>
-      <h1>Hello Chess!</h1>
-      <div>Clock 1</div>
-      <div>Clock 2</div>
-      <div id="game-area">
-	<div id="board">
-          {coords.map((row, x) => (row.map((_, y) => (
-              y % 2
-                ? <div className={x % 2 ? "light-square" : "dark-square"}></div>
-		: <div className={x % 2 ? "dark-square" : "light-square"}></div>
-            ))
-          ))};
+      <div id="app-wrapper">
+	<div id="game-area">
+	  <div id="board">
+	    {coords.map((row, x) => (row.map((_, y) => (
+		y % 2
+		  ? <div className={x % 2 ? "light-square" : "dark-square"}></div>
+		  : <div className={x % 2 ? "dark-square" : "light-square"}></div>
+	      ))
+	    ))};
+	  </div>
 	</div>
       </div>
     </>
