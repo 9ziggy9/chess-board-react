@@ -1,7 +1,9 @@
 import '../index.css';
 import {useEffect, useState} from 'react';
+import {useGame} from "../hooks/useGame";
 
 const Clock = () => {
+  const [state, dispatch] = useGame();
   const [time, setTime] = useState(500);
 
   useEffect(() => {
@@ -17,6 +19,7 @@ const Clock = () => {
       <div className="time">
         {time}
       </div>
+      <button onClick={() => dispatch({type: "INIT"})}></button>
     </div>
     </>
   );

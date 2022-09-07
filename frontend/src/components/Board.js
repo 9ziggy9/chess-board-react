@@ -1,21 +1,24 @@
 import '../index.css';
-import {useReducer, useRef, useState} from 'react';
-import {gameReducer, NEW_GAME} from '../store/gameReducer.js';
+import {useRef, useEffect, useState} from 'react';
+import {useGame} from "../hooks/useGame";
 import {COORDS} from "../globals";
 
 export default function Board() {
-  const [gameState, dispatch] = useReducer(gameReducer, NEW_GAME);
+  const [state, dispatch] = useGame();
   const [moving, setMoving] = useState(false);
-  const {pieces} = gameState;
+  const {pieces} = state;
   const clickedSquare = useRef("");
   const selectedPiece = useRef("");
+
+  // useEffect(() => {
+  //   console.log(state);
+  // }, [state.pieces]);
 
   const handleMove = e => {
     if (!moving) {
       setMoving(true);
       clickedSquare.current = e.target.id;
       selectedPiece.current = e.target.className;
-      console.log(e.target.classList);
       e.target.classList.toggle("selected-piece");
       return;
     } else {
@@ -57,6 +60,7 @@ export default function Board() {
 	))
       ))}
     </div>
+      <button onClick={() => dispatch({"type": "INIT"})}></button>
     </>
   );
 };

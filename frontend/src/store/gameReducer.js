@@ -10,6 +10,7 @@ export const NEW_GAME = {
 export const gameReducer = (state, action) => {
   switch(action.type) {
   case "INIT":
+    console.log("HIT INIT");
     return {...NEW_GAME};
   case "ADD":
     return {
@@ -17,12 +18,14 @@ export const gameReducer = (state, action) => {
       pieces: {...state.pieces,
 		[action.payload.to]: action.payload.piece}};
   case "MOVE":
-    return {
+    const newState = {
       ...state,
       whiteMove: false,
       pieces: {...state.pieces,
 	       [action.payload.from]: undefined,
 	       [action.payload.to]: action.payload.piece}};
+    console.log(newState.pieces);
+    return newState;
   default:
     return null;
   }
