@@ -3,16 +3,12 @@ import {useRef, useEffect, useState} from 'react';
 import {useGame} from "../hooks/useGame";
 import {COORDS} from "../globals";
 
-export default function Board() {
+export default function Board({whiteMove, setWhiteMove}) {
   const [state, dispatch] = useGame();
   const [moving, setMoving] = useState(false);
   const {pieces} = state;
   const clickedSquare = useRef("");
   const selectedPiece = useRef("");
-
-  // useEffect(() => {
-  //   console.log(state);
-  // }, [state.pieces]);
 
   const handleMove = e => {
     if (!moving) {
@@ -35,6 +31,7 @@ export default function Board() {
           piece: selectedPiece.current
         }
       });
+      setWhiteMove(prev => !prev);
       return;
     }
   };
@@ -60,7 +57,6 @@ export default function Board() {
 	))
       ))}
     </div>
-      <button onClick={() => dispatch({"type": "INIT"})}></button>
     </>
   );
 };

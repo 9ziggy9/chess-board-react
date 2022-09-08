@@ -1,25 +1,38 @@
 import '../index.css';
 import {useEffect, useState} from 'react';
-import {useGame} from "../hooks/useGame";
 
-const Clock = () => {
-  const [state, dispatch] = useGame();
-  const [time, setTime] = useState(500);
+const Clock = ({whiteMove}) => {
+  const [whiteTime, setWhiteTime] = useState(500);
+  const [blackTime, setBlackTime] = useState(500);
 
   useEffect(() => {
     const pTime = setInterval(() => {
-      setTime(prev => prev - 1);
+      if (whiteMove) {
+	console.log("black turn");
+	setWhiteTime(prev => prev - 1);
+      }
+      if (!whiteMove) {
+	console.log("white turn");
+	setBlackTime(prev => prev - 1);
+      }
     }, 1000);
     return () => clearInterval(pTime);
-  }, []);
+  }, [whiteMove]);
+
+  // if white move: start white decrement timer
+  // if !white move: start black decrement timer
+  // return () => clearInterval(pTime);
+
 
   return (
     <>
     <div className="clock-face">
       <div className="time">
-        {time}
+        {blackTime}
       </div>
-      <button onClick={() => dispatch({type: "INIT"})}></button>
+      <div className="time">
+        {whiteTime}
+      </div>
     </div>
     </>
   );
